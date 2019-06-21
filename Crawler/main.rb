@@ -1,3 +1,5 @@
+#!/opt/ruby/shims/ruby
+
 require './scrape.rb'
 
 s = EHon::Scraper
