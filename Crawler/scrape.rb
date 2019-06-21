@@ -9,7 +9,7 @@ class Scraper
     agent = Mechanize.new
     page = agent.get('http://www.e-hon.ne.jp/bec/SI/ComicTop?taishongpi=NEW')
 
-    p = Array.new(Publisher)
+    p = []
     
     # Loop:
     page.links.each do |link|
@@ -19,7 +19,11 @@ class Scraper
       
       # link.text =
       # link.href = URL
-      p << Publisher.new( name => link.text, url => link.href )
+      p.push( Publisher.new do
+	        name link.text
+	        url  link.href 
+              end	
+	    )
     end
 
     return p
@@ -36,22 +40,14 @@ class Scraper
   end
 end
 
-class Publisher
-  extend Property
+class Publisher < Property
   
   property :name
   property :url 
 
-  def initialize(&block)
-    case block.arity
-      when 0 ; instance_eval &block
-      else   ; yield self
-    end if block
-  end
 end
 
-class BookInfo
-  extend Property
+class BookInfo < Property
 
   property :title
   property :author
@@ -59,12 +55,6 @@ class BookInfo
   property :publisher
   property :release_date
 
-  def initialize(&block)
-    case block.arity
-      when 0 ; instance_eval &block
-      else   ; yield self
-    end if block
-  end
 end
 
 end
