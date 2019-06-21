@@ -1,22 +1,23 @@
 require 'mechanize'
+require './Property.rb'
 
 class EHon
 
 class Scraper
 
-  def get_publisher()
+  def self.get_publisher()
     agent = Mechanize.new
     page = agent.get('http://www.e-hon.ne.jp/bec/SI/ComicTop?taishongpi=NEW')
 
     p = Array.new(Publisher)
     
-    # Loop: リンク
+    # Loop:
     page.links.each do |link|
       unless link.href.include?('ComicSyuppan')  then
         next
       end
       
-      # link.text = 出版社名
+      # link.text =
       # link.href = URL
       p << Publisher.new( name => link.text, url => link.href )
     end
@@ -24,11 +25,11 @@ class Scraper
     return p
   end
 
-  def get_books(publisher, url)
+  def self.get_books(publisher, url)
     agent = Machanize.new
     page = agent.get(url)
     
-    # Loop: リンク
+    # Loop:
     page.links.each do |link|
       p link
     end
@@ -36,16 +37,34 @@ class Scraper
 end
 
 class Publisher
-  attr_accessor :name
-  attr_accessor :url
+  extend Property
+  
+  property :name
+  property :url 
+
+  def initialize(&block)
+    case block.arity
+      when 0 ; instance_eval &block
+      else   ; yield self
+    end if block
+  end
 end
 
 class BookInfo
-  attr_accessor :title
-  attr_accessor :author
-  attr_accessor :comic_name
-  attr_accessor :publisher
-  attr_accessor :release_date
+  extend Property
+
+  property :title
+  property :author
+  property :comic_name
+  property :publisher
+  property :release_date
+
+  def initialize(&block)
+    case block.arity
+      when 0 ; instance_eval &block
+      else   ; yield self
+    end if block
+  end
 end
 
 end
