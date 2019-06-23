@@ -30,13 +30,27 @@ class Scraper
   end
 
   def self.get_books(publisher, url)
-    agent = Machanize.new
+    sleep(1.5)
+    agent = Mechanize.new
     page = agent.get(url)
+
+    books = []
     
     # Loop:
-    page.links.each do |link|
-      p link
+    # at = %, search = /
+    # page % table[2] = 7月期　出版社　コミック新刊案内
+    elm = (page/:table)
+    (elm[3]/:tr).each do |tr|
+      books.push( BookInfo.new do
+	                  title      (tr/:td[3]).text
+	                  author     (tr/:td[4]).text
+	                  comic_name (tr/:td).first.text
+	                  publisher  publisher
+                    release_date (tr/:td[1]).text
+	          end
+      )
     end
+
   end
 end
 
