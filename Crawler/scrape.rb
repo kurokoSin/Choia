@@ -42,14 +42,29 @@ class Scraper
     elm = (page/:table)
     (elm[3]/:tr).each do |tr|
       books.push( BookInfo.new do
-	                  title      (tr/:td[3]).text
-	                  author     (tr/:td[4]).text
-	                  comic_name (tr/:td).first.text
-	                  publisher  publisher
-                    release_date (tr/:td[1]).text
-	          end
+	                  title        "title=" + (tr/:font)[2].text
+	                  author       "author=" + (tr/:font)[3].text
+	                  comic_name   "comic_name=" + (tr%:font).text
+	                  publisher    "publisher=" + publisher
+                    release_date "release_date=" + (tr/:font)[1].text
+	                end
       )
+
+      p "--- inside --- begin"
+      # p tr / "font:nth-child(3)"         # -> []
+      # p (tr / "font:nth-child(3)").text  # -> ""
+      # p tr/:font                         # -> 1 line all
+      # p (tr%:font).text
+      p  (tr/:font)[0].text
+      p  (tr/:font)[1].text
+      p  (tr/:font)[2].text
+      p  (tr/:font)[3].text
+      p  (tr/:font)[4].text
+      # p  (tr/:font)[5].text
+      p "--- inside --- end"
     end
+
+    books
 
   end
 end

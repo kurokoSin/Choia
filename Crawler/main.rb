@@ -8,17 +8,18 @@ ps = s.get_publisher
 ps.each do |pub| 
   bks = s.get_books(pub.name, pub.url)
   bks.each do |book|
-    p "-------------------------"
-    # p book
-    book.each do |el|
-      p el
-    end
-    # p book.title
+    p "--- begin ----------------------"
+    # book.each do |el|
+    #   p el
+    #   p "@"
+    # end
+    p book.title
     # p book.author
     # p book.release_date
     # p book.publisher
     # p book.comic_name   
     
+    p "--- end ------------------------"
   end
   exit
 end 
