@@ -49,19 +49,6 @@ class Scraper
                     release_date "release_date=" + (tr/:font)[1].text
 	                end
       )
-
-      p "--- inside --- begin"
-      # p tr / "font:nth-child(3)"         # -> []
-      # p (tr / "font:nth-child(3)").text  # -> ""
-      # p tr/:font                         # -> 1 line all
-      # p (tr%:font).text
-      p  (tr/:font)[0].text
-      p  (tr/:font)[1].text
-      p  (tr/:font)[2].text
-      p  (tr/:font)[3].text
-      p  (tr/:font)[4].text
-      # p  (tr/:font)[5].text
-      p "--- inside --- end"
     end
 
     books
