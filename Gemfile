@@ -9,3 +9,6 @@ gem "nokogiri",  "~> 1.10.3"
 gem "mechanize", "~> 2.7.6"
 gem "rails"
 
+# For sqlite3
+gem "dbi"
+gem "dbd-sqlite3"
