@@ -1,0 +1,2 @@
+class Comix < ApplicationRecord
+end
