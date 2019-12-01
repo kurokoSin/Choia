@@ -1,9 +1,9 @@
 require 'mechanize'
 require './Property.rb'
 
-class EHon
-
 class Scraper
+
+class EHon
 
   def self.get_publisher()
     agent = Mechanize.new
@@ -39,14 +39,21 @@ class Scraper
     # Loop:
     # at = %, search = /
     # page % table[2] = 7月期　出版社　コミック新刊案内
+    isheader = true
     elm = (page/:table)
     (elm[3]/:tr).each do |tr|
+      if isheader then 
+        isheader = false
+        next
+      end
       books.push( BookInfo.new do
 	                  title        "title=" + (tr/:font)[2].text
 	                  author       "author=" + (tr/:font)[3].text
 	                  comic_name   "comic_name=" + (tr%:font).text
 	                  publisher    "publisher=" + publisher
                     release_date "release_date=" + (tr/:font)[1].text
+                    isAdult = (tr/:img)[0].nil?
+                    is_adult     "adult=" + (! isAdult).to_s
 	                end
       )
     end
@@ -70,6 +77,7 @@ class BookInfo < Property
   property :comic_name
   property :publisher
   property :release_date
+  property :is_adult
 
 end
 

@@ -1,0 +1,13 @@
+# Logfile created on 2019-11-30 19:22:43 -0800 by logger.rb/v1.4.1
+E, [2019-11-30T19:22:43.029547 #3451] ERROR -- : undefined method `map' for #<Scraper::BookInfo:0x000055d3b0700df8>
+Did you mean?  tap
+E, [2019-11-30T19:22:43.030867 #3451] ERROR -- : undefined method `map' for #<Scraper::BookInfo:0x000055d3b0c79b90>
+Did you mean?  tap
+E, [2019-11-30T19:22:43.032404 #3451] ERROR -- : undefined method `map' for #<Scraper::BookInfo:0x000055d3b0ebf3f0>
+Did you mean?  tap
+E, [2019-11-30T19:22:43.033629 #3451] ERROR -- : undefined method `map' for #<Scraper::BookInfo:0x000055d3b0f13298>
+Did you mean?  tap
+E, [2019-11-30T19:22:43.034715 #3451] ERROR -- : undefined method `map' for #<Scraper::BookInfo:0x000055d3b0f7d7d8>
+Did you mean?  tap
+E, [2019-11-30T19:22:43.035756 #3451] ERROR -- : undefined method `map' for #<Scraper::BookInfo:0x000055d3b0fe5658>
+Did you mean?  tap

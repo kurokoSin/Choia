@@ -15,7 +15,8 @@ class ComixesController < ApplicationController
 
   # POST /comixes
   def create
-    @comix = Comix.new(comix_params)
+    # @comix = Comix.new(comix_params)
+    @comix = Comix.new(name: params[:name], publisher: params[:publisher], comic_name: params[:comic_name], book_name: params[:book_name], author: params[:author], publish_date: params[:publish_date])
 
     if @comix.save
       render json: @comix, status: :created, location: @comix

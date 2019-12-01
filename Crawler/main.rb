@@ -1,19 +1,17 @@
 #!/opt/ruby/shims/ruby
 
 require './scrape.rb'
+require './register.rb'
 
-s = EHon::Scraper
+s = Scraper::EHon
+reg = Register
 
 ps = s.get_publisher
+
 ps.each do |pub| 
   bks = s.get_books(pub.name, pub.url)
   bks.each do |book|
-    p "--- begin ----------------------"
-    p book.title
-    p book.author
-    p book.release_date
-    p book.publisher
-    p book.comic_name   
-    p "--- end ------------------------"
+    reg.reg_book(book)
   end
+  exit  # debug
 end 
