@@ -11,7 +11,7 @@ class CreateComixes < ActiveRecord::Migration[6.0]
       t.string "book_image"
       t.string "isbn_code"
       t.string "other_info"
-      t.string "seies_name"
+      t.string "series_name"
 
       t.timestamps
     end

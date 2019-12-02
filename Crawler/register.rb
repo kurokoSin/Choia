@@ -13,18 +13,17 @@ class Register
   @destReg = "http://localhost:3000/comixes"
 
   def self.reg_book( bookinfo )
-    p "--- begin ----------------------"
-    p bookinfo.title
-    p bookinfo.author
-    p bookinfo.release_date
-    p bookinfo.publisher
-    p bookinfo.comic_name
-    p bookinfo.is_adult
-    p "--- end ------------------------"
-
     # [ロガー]
     # カレントディレクトリのwebapi.logというファイルに出力
     logger = Logger.new( './webapi.log' )
+    
+    # [引数]
+    logger.debug "--- begin ----------------------"
+    logger.debug bookinfo.to_json 
+    logger.debug bookinfo.name
+    logger.debug bookinfo.author
+    logger.debug "--- end ------------------------"
+
 
     # [クエリパラメータ]
     # URI.encode_www_formを使って「application/x-www-form-urlencoded」形式の文字列に変換
@@ -34,7 +33,8 @@ class Register
     # 'bar baz' => 'bar+baz'
     # 'あ' => '%E3%81%82'
     # params = URI.encode_www_form({ param1: 'foo', param2: 'bar baz' , param3: 'あ' })
-    # params = URI.encode_www_form( bookinfo )
+    # params = URI.encode_www_form({ name: 'ベルセルク', author: '三浦 健太郎' })
+    # params = URI.encode_www_form( bookinfo.to_json )
 
     # [URI]
     # URI.parseは与えられたURIからURI::Genericのサブクラスのインスタンスを返す
@@ -47,6 +47,7 @@ class Register
     # uri.path   => ''
     # uri.query  => 'param1=foo&param2=bar+baz&param3=%E3%81%82'
     uri = URI.parse( "http://localhost:3000/comixes" )
+    logger.debug( "uri.parse end " + uri.host + ":" + uri.port.to_s )
 
     begin
       # [GETリクエスト]
@@ -67,10 +68,11 @@ class Register
         # http.get(uri.request_uri)
 
         # Net::HTTP#postでのレスポンス取得
-        req = Net::HTTP::Post.new(uri.request_uri)
-        req.set_form_data( bookinfo )
+        # req = Net::HTTP::Post.new(uri.request_uri)
+        # req.set_form_data( bookinfo.to_json )
+        http.post_form(uri, bookinfo.to_hash )
 
-        http.request( req )
+        # http.request( req )
       end
 
       # [レスポンス処理]

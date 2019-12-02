@@ -1,5 +1,6 @@
 require 'mechanize'
 require './Property.rb'
+require './dto.rb'
 
 class Scraper
 
@@ -47,13 +48,12 @@ class EHon
         next
       end
       books.push( BookInfo.new do
-	                  title        "title=" + (tr/:font)[2].text
-	                  author       "author=" + (tr/:font)[3].text
-	                  comic_name   "comic_name=" + (tr%:font).text
-	                  publisher    "publisher=" + publisher
-                    release_date "release_date=" + (tr/:font)[1].text
-                    isAdult = (tr/:img)[0].nil?
-                    is_adult     "adult=" + (! isAdult).to_s
+	                  name         (tr/:font)[2].text
+	                  author       (tr/:font)[3].text
+	                  comic_name   (tr%:font).text
+	                  publisher    publisher
+                    publish_date (tr/:font)[1].text
+                    is_adult     (! (tr/:img)[0].nil?).to_s
 	                end
       )
     end
@@ -63,22 +63,5 @@ class EHon
   end
 end
 
-class Publisher < Property
-  
-  property :name
-  property :url 
-
-end
-
-class BookInfo < Property
-
-  property :title
-  property :author
-  property :comic_name
-  property :publisher
-  property :release_date
-  property :is_adult
-
-end
 
 end
