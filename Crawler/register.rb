@@ -13,28 +13,21 @@ class Register
   @destReg = "http://localhost:3000/comixes"
 
   def self.reg_book( bookinfo )
+    
+    # [引数]
+    # logger.debug "--- begin ----------------------"
+    # logger.debug bookinfo.to_json 
+    # logger.debug bookinfo.name
+    # logger.debug bookinfo.author
+    # logger.debug "--- end ------------------------"
+
+    self.post( "http://localhost:3000/comixes", bookinfo.to_json)
+  end
+
+  def self.post(url, request_body)
     # [ロガー]
     # カレントディレクトリのwebapi.logというファイルに出力
     logger = Logger.new( './webapi.log' )
-    
-    # [引数]
-    logger.debug "--- begin ----------------------"
-    logger.debug bookinfo.to_json 
-    logger.debug bookinfo.name
-    logger.debug bookinfo.author
-    logger.debug "--- end ------------------------"
-
-
-    # [クエリパラメータ]
-    # URI.encode_www_formを使って「application/x-www-form-urlencoded」形式の文字列に変換
-    # 文字列はURLエンコードされた形式に変換（半角スペースの"+"への変換等）
-    #
-    # （変換例）
-    # 'bar baz' => 'bar+baz'
-    # 'あ' => '%E3%81%82'
-    # params = URI.encode_www_form({ param1: 'foo', param2: 'bar baz' , param3: 'あ' })
-    # params = URI.encode_www_form({ name: 'ベルセルク', author: '三浦 健太郎' })
-    # params = URI.encode_www_form( bookinfo.to_json )
 
     # [URI]
     # URI.parseは与えられたURIからURI::Genericのサブクラスのインスタンスを返す
@@ -42,38 +35,42 @@ class Register
     #
     # オブジェクトからは以下のようにして構成要素を取得できる
     # uri.scheme => 'http'
-    # uri.host   => 'mogulla3.com'
-    # uri.port   => 4567
-    # uri.path   => ''
-    # uri.query  => 'param1=foo&param2=bar+baz&param3=%E3%81%82'
-    uri = URI.parse( "http://localhost:3000/comixes" )
-    logger.debug( "uri.parse end " + uri.host + ":" + uri.port.to_s )
+    # uri.host   => 'localhost'
+    # uri.port   => 3000
+    # uri.path   => 'comixes'
+    # uri.query  => ''
+    uri = URI.parse( url )
+    logger.debug( "uri.parse end " + uri.host + ":" + uri.port.to_s + uri.request_uri )
 
     begin
+      # [リクエスト事前設定]
+      http = Net::HTTP.new( uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+
+      # Net::HTTP.open_timeout=で接続時に待つ最大秒数の設定をする
+      # タイムアウト時はTimeoutError例外が発生
+      http.open_timeout = 5
+
+      # Net::HTTP.read_timeout=で読み込み1回でブロックして良い最大秒数の設定をする
+      # デフォルトは60秒
+      # タイムアウト時はTimeoutError例外が発生
+      http.read_timeout = 125
+
       # [GETリクエスト]
       # Net::HTTP.startでHTTPセッションを開始する
       # 既にセッションが開始している場合はIOErrorが発生
-      response = Net::HTTP.start(uri.host, uri.port) do |http|
-        # Net::HTTP.open_timeout=で接続時に待つ最大秒数の設定をする
-        # タイムアウト時はTimeoutError例外が発生
-        http.open_timeout = 5
-
-        # Net::HTTP.read_timeout=で読み込み1回でブロックして良い最大秒数の設定をする
-        # デフォルトは60秒
-        # タイムアウト時はTimeoutError例外が発生
-        http.read_timeout = 10
+      response = http.start do 
+        # [ヘッダー] 
+        headers = { "Content-Type" => "application/json" }
 
         # # Net::HTTP#getでレスポンスの取得
         # # 返り値はNet::HTTPResponseのインスタンス
         # http.get(uri.request_uri)
 
         # Net::HTTP#postでのレスポンス取得
-        # req = Net::HTTP::Post.new(uri.request_uri)
-        # req.set_form_data( bookinfo.to_json )
-        http.post_form(uri, bookinfo.to_hash )
-
-        # http.request( req )
+        http.post( uri.request_uri, request_body, headers)
       end
+
 
       # [レスポンス処理]
       # 2xx系以外は失敗として終了することにする

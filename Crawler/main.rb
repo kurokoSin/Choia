@@ -13,5 +13,4 @@ ps.each do |pub|
   bks.each do |book|
     reg.reg_book(book)
   end
-  exit  # debug
 end 
