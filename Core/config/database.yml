@@ -21,5 +21,11 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: mysql2
+  database: ChoiaDb
+  encoding: utf8mb4
+  pool: 5
+  timeout: 600
+  username: Choia
+  password: h65C7fpj
+  socket: /var/run/mysqld/mysqld.sock
