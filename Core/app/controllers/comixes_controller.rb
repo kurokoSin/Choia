@@ -46,7 +46,8 @@ class ComixesController < ApplicationController
       @comix = Comix
                  .where(publish_date: params[:id], is_adult: :false)
                  .select(:id, :name, :author, :publisher, "case when exists( select 1 from favorits where comixes.name like concat(favorits.title ,'%') ) then 1 else 0 END as fav ")
-                 .order(publisher: "ASC")
+                 .order(fav: "DESC")
+                 # .order(fav: "DESC", publisher: "ASC")
     end
 
     # Only allow a trusted parameter "white list" through.
