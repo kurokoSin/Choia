@@ -1,3 +1,5 @@
+require "lib_han_zen.rb"
+
 class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :update, :destroy]
 
@@ -30,10 +32,10 @@ class TopicsController < ApplicationController
     end
 
     req.each do |r|
-      @topic = Topic.find_by(name: r["name"], week: r["week"])
+      @topic = Topic.find_by(name: narrow_to_wide(r["name"]), week: r["week"])
       if @topic
       else
-        @topic = Topic.new(name: r["name"], week: r["week"])
+        @topic = Topic.new(name: narrow_to_wide(r["name"]), week: r["week"])
         @topic.save
       end
     end
