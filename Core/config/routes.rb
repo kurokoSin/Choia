@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :topics
+  # resources :topics
+  get 'topics'   => 'topics#index'
+  # get 'topics/:begin/:end' => 'topics#show'
+  get 'topics/:begin/:end' => 'topics#list'
+  post 'topics' => 'topics#create'
+
   resources :comixes do
     collection do
       match '', via: :options, action: 'show'

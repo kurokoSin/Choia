@@ -15,15 +15,19 @@ class TopicsController < ApplicationController
     render json: @topic
   end
 
+  # GET /topics/yyyymmdd/yyyymmdd
+  def list
+    @topic = Topic
+             .select('name, count(*) ')
+             .where('week > ?', params[:begin])
+             .where('week <= ?',  params[:end])
+             .group('name')
+             .order("count(*) DESC")
+    render json: @topic
+  end
+
   # POST /topics
   def create
-    # @topic = Topic.new(topic_params)
-    # 
-    # if @topic.save
-    #   render json: @topic, status: :created, location: @topic
-    # else
-    #   render json: @topic.errors, status: :unprocessable_entity
-    # end
     req = JSON.parse(request.body.read)
     if !req.blank?
       top_res = req
@@ -43,19 +47,19 @@ class TopicsController < ApplicationController
     render top_res
   end
 
-  # PATCH/PUT /topics/1
-  def update
-    if @topic.update(topic_params)
-      render json: @topic
-    else
-      render json: @topic.errors, status: :unprocessable_entity
-    end
-  end
+  # # PATCH/PUT /topics/1
+  # def update
+  #   if @topic.update(topic_params)
+  #     render json: @topic
+  #   else
+  #     render json: @topic.errors, status: :unprocessable_entity
+  #   end
+  # end
 
-  # DELETE /topics/1
-  def destroy
-    @topic.destroy
-  end
+  # # DELETE /topics/1
+  # def destroy
+  #   @topic.destroy
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
