@@ -15,8 +15,19 @@ class ComixesController < ApplicationController
 
   # POST /comixes
   def create
-    # @comix = Comix.new(comix_params)
-    @comix = Comix.new(name: params[:name], publisher: params[:publisher], comic_name: params[:comic_name], is_adult: params[:is_adult], book_name: params[:book_name], author: params[:author], publish_date: params[:publish_date])
+    @find = Comix.find_by( name: params[:name], publish_date: params[:publish_date] )
+    if @find
+    else
+      # @comix = Comix.new(comix_params)
+      @comix = Comix.new(name: params[:name], 
+                         publisher: params[:publisher], 
+                         comic_name: params[:comic_name], 
+                         is_adult: params[:is_adult], 
+                         book_name: params[:book_name], 
+                         author: params[:author], 
+                         publish_date: params[:publish_date]
+               )
+    end
 
     if @comix.save
       render json: @comix, status: :created, location: @comix
@@ -45,7 +56,7 @@ class ComixesController < ApplicationController
       # @comix = Comix.find(params[:id])
       @comix = Comix
                  .where(publish_date: params[:id], is_adult: :false)
-                 .select(:id, :name, :author, :publisher, "case when exists( select 1 from favorits where comixes.name like concat(favorits.title ,'%') ) then 1 else 0 END as fav ")
+                 .select(:id, :name, :author, :publisher, "case when exists( select 1 from topics where comixes.name like concat(topics.name ,'%') ) then 1 else 0 END as fav ")
                  .order(fav: "DESC")
                  # .order(fav: "DESC", publisher: "ASC")
     end
