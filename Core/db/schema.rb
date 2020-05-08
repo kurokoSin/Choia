@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_005859) do
     t.string "book_image"
     t.string "isbn_code"
     t.string "other_info"
-    t.string "seies_name"
+    t.string "series_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
