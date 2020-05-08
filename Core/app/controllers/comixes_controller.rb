@@ -56,7 +56,11 @@ class ComixesController < ApplicationController
       # @comix = Comix.find(params[:id])
       @comix = Comix
                  .where(publish_date: params[:id], is_adult: :false)
-                 .select(:id, :name, :author, :publisher, "case when exists( select 1 from topics where comixes.name like concat(topics.name ,'%') ) then 1 else 0 END as fav ")
+                 .select(:id, :name, :author, :publisher, 
+                         "case 
+                           when exists( select 1 from topics where comixes.name like concat(topics.name, '%') ) then 1
+                           when exists( select 1 from series_aliases where comixes.name like concat(series_aliases.aname,'%') ) then 1
+                           else 0 END as fav ")
                  .order(fav: "DESC")
                  # .order(fav: "DESC", publisher: "ASC")
     end

@@ -1,0 +1,2 @@
+class SeriesAlias < ApplicationRecord
+end

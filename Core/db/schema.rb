@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_151855) do
+ActiveRecord::Schema.define(version: 2020_05_08_005859) do
 
   create_table "comixes", force: :cascade do |t|
     t.string "name"
@@ -28,16 +28,51 @@ ActiveRecord::Schema.define(version: 2020_03_12_151855) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "favorits", force: :cascade do |t|
-    t.string "title"
+  create_table "series", id: false, force: :cascade do |t|
+    t.string "sid"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "week"
+  end
+
+  create_table "series_aliases", id: false, force: :cascade do |t|
+    t.string "sid"
+    t.string "aname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "series_tags", id: false, force: :cascade do |t|
+    t.string "sid"
+    t.string "tid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", id: false, force: :cascade do |t|
+    t.string "tid"
+    t.string "tname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.string "week"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_favorits", id: false, force: :cascade do |t|
+    t.string "uid"
+    t.string "sid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", id: false, force: :cascade do |t|
+    t.string "uid"
+    t.string "privateid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

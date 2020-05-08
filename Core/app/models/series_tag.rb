@@ -1,0 +1,2 @@
+class SeriesTag < ApplicationRecord
+end
