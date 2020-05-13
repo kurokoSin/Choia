@@ -74,7 +74,7 @@ class ComixesController < ApplicationController
                    publish_date: params[:id], 
                    is_adult: :false
                    )
-                 .order(fav: "DESC")
+                 .order(fav: "DESC", name: "ASC")
                  # .order(fav: "DESC", publisher: "ASC")
     end
 
