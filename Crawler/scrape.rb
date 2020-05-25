@@ -8,30 +8,43 @@ class EHon
 
   def self.get_publisher()
     agent = Mechanize.new
-    page = agent.get('http://www.e-hon.ne.jp/bec/SI/ComicTop?taishongpi=NEW')
+    page = agent.get('https://www.e-hon.ne.jp/bec/SI/ComicTop?taishongpi=NEW')
 
     p = []
     
     # Loop:
     page.links.each do |link|
-      unless link.href.include?('ComicSyuppan')  then
-        next
-      end
-      
-      # link.text =
-      # link.href = URL
+      next unless link.href.include?('ComicSyuppan')
+
       p.push( Publisher.new do
-	        name link.text
-	        url  link.href 
+                name link.text
+                url  link.href 
               end	
 	    )
     end
-
     return p
   end
 
+  def self.get_pages(publisher, url)
+    agent = Mechanize.new
+    page = agent.get(url)
+    hrefs = [url]
+    page.links.each do |link|
+      next unless link.href.include?('ComicSyuppan')
+      hrefs.push(link.href)
+    end
+    hrefs.uniq!
+    books = []
+    hrefs.each do |p2|
+      books.push(get_books(publisher, p2))
+    end
+    books.flatten!
+  end
+
   def self.get_books(publisher, url)
-    sleep(1.5)
+    p publisher
+    p url
+    sleep(1.3)
     agent = Mechanize.new
     page = agent.get(url)
 
