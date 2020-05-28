@@ -1,3 +1,5 @@
+require "lib_han_zen.rb"
+
 class ComixesController < ApplicationController
   before_action :set_comix, only: [:show, :update, :destroy]
 
@@ -15,11 +17,10 @@ class ComixesController < ApplicationController
 
   # POST /comixes
   def create
-    @find = Comix.find_by( name: params[:name], publish_date: params[:publish_date] )
-    if @find
-    else
+    @find = Comix.find_by( name: narrow_to_wide(params[:name]), publish_date: params[:publish_date] )
+    unless @find
       # @comix = Comix.new(comix_params)
-      @comix = Comix.new(name: params[:name], 
+      @comix = Comix.new(name: narrow_to_wide(params[:name]), 
                          publisher: params[:publisher], 
                          comic_name: params[:comic_name], 
                          is_adult: params[:is_adult], 
