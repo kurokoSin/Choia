@@ -1,4 +1,4 @@
-require "lib_han_zen.rb"
+# require "lib_han_zen.rb"
 
 class ComixesController < ApplicationController
   before_action :set_comix, only: [:show, :update, :destroy]
@@ -50,42 +50,50 @@ class ComixesController < ApplicationController
   def destroy
     @comix.destroy
   end
+  
+  # DELETE /comixes/:mon/:publisher
+  def del_mon
+    @comix = Comix
+               .select(:id)
+               .where( "publish_date like '#{params[:mon]}%'", 
+                       "publisher = '#{params[:publisher]}'")
+    @comix.destroy
+  end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comix
-      # @comix = Comix.find(params[:id])
-      # like_top = ActiveRecord::Base.connection.concat('topics.name', '%')
-      @comix = Comix
-                 .select(
-                   :id, 
-                   :name, 
-                   :author, 
-                   :publisher, 
-                   "case 
-                     when exists( select 1 
-                                    from topics 
-                                   where comixes.name like #{concat('topics.name', "'%'")} ) then 1
-                     when exists( select 1 
-                                    from series_aliases 
-                                   where comixes.name like #{concat('series_aliases.aname', "'%'")} ) then 1
-                     else 0 END as fav "
-                   )
-                 .where(
-                   publish_date: params[:id], 
-                   is_adult: :false
-                   )
-                 .order(fav: "DESC", name: "ASC")
-                 # .order(fav: "DESC", publisher: "ASC")
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_comix
+    # @comix = Comix.find(params[:id])
+    # like_top = ActiveRecord::Base.connection.concat('topics.name', '%')
+    @comix = Comix
+               .select(
+                 :id, 
+                 :name, 
+                 :author, 
+                 :publisher, 
+                 "case 
+                   when exists( select 1 
+                                  from topics 
+                                 where comixes.name like #{concat('topics.name', "'%'")} ) then 1
+                   when exists( select 1 
+                                  from series_aliases 
+                                 where comixes.name like #{concat('series_aliases.aname', "'%'")} ) then 1
+                   else 0 END as fav "
+                 )
+               .where(
+                 publish_date: params[:id], 
+                 is_adult: :false
+                 )
+               .order(fav: "DESC", name: "ASC")
+               # .order(fav: "DESC", publisher: "ASC")
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def comix_params
-      params.fetch(:comix, {})
-    end
+  # Only allow a trusted parameter "white list" through.
+  def comix_params
+    params.fetch(:comix, {})
+  end
 
-    private
-    def concat(*args)
-      ActiveRecord::Base.connection.concat(args)
-    end
+  def concat(*args)
+    ActiveRecord::Base.connection.concat(args)
+  end
 end

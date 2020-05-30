@@ -10,5 +10,8 @@ Rails.application.routes.draw do
       match '', via: :options, action: 'show'
     end
   end
+
+  delete 'comixes/:mon/:publisher' => 'comixes#del_mon'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
