@@ -1,4 +1,4 @@
-# require "lib_han_zen.rb"
+require "lib_han_zen.rb"
 
 class ComixesController < ApplicationController
   before_action :set_comix, only: [:show, :update, :destroy]
