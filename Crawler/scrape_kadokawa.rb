@@ -51,6 +51,7 @@ private
 	    publisher    'ＫＡＤＯＫＡＷＡ'
       publish_date page.at('dd.detail-release-text').inner_text.sub(/年/,'-').sub(/月/,'-').sub(/日/,'')
       is_adult     :false
+      source_domain "kadokawa.co.jp"
 	  end
   end
 

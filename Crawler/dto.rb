@@ -18,6 +18,7 @@ class BookInfo < Property
   property :isbn_code
   property :other_info
   property :seriese_name
+  property :source_domain
 
 end
 

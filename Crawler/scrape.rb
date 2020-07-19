@@ -67,6 +67,7 @@ class EHon
 	                  publisher    publisher
                     publish_date (tr/:font)[1].text
                     is_adult     (! (tr/:img)[0].nil?).to_s
+                    source_domain "e-hon.ne.jp"
 	                end
       )
     end
