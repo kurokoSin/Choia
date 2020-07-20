@@ -10,8 +10,8 @@ require './Property.rb'
 # Core 接続先
 # Core ポート番号
 class Register
-  @destReg = "http://localhost:3000/comixes"
-  # @destReg = "http://localhost/comixes"
+  # @destReg = "http://localhost:3000/comixes"
+  @destReg = "http://localhost/comixes"
 
   def self.reg_book( bookinfo )
     
