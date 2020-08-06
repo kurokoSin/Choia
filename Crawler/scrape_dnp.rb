@@ -20,8 +20,8 @@ class Dnp
 private
 
   def self.get_schedule()
-    site = Faraday.get('https://honto.jp/netstore/calender/old.html').body
-    # site = Faraday.get('https://honto.jp/netstore/calender.html').body
+    # site = Faraday.get('https://honto.jp/netstore/calender/old.html').body
+    site = Faraday.get('https://honto.jp/netstore/calender.html').body
     noko = Nokogiri::HTML(site)
     # Loop:
     tbodys = noko.search('tr')
