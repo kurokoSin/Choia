@@ -1,0 +1,18 @@
+---
+#- :key_path: "/home/vagrant/Choia/config/choia_product.key"
+- :key_path: "./choia_product.key"
+- :db_host:
+    :value: |-
+      ?7jQwtDL6ysx9lVJ8IqaFqXdoJB5YYt6HSDmzg5+d5V+SKDU3mx8v0hfUJ+64
+      xHvm
+    :desc: Database Host Name
+  :db_password:
+    :value: |-
+      ?VQQKp+GCRZ5iw8OtFlbs4Q0JIGP4krvthHiMKDVz3JN1/qL1kU3BOCjKPVdk
+      NhMO
+    :desc: Database password
+  :db_user:
+    :value: |-
+      ?FgZPuruSxYAaEXn23bZp6RIXXCkuJbUMwNlOSXX222SKen8XvgvHj8tUTQlQ
+      PmOG
+    :desc: Database username

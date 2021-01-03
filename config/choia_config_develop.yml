@@ -1,0 +1,5 @@
+---
+- :key_path: "/home/vagrant/.crypt_config/choia_key_develop.yml"
+- :dummy:
+    :value: ''
+    :desc: ''

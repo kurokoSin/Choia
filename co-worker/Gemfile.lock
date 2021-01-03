@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    differ (0.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  differ
+
+BUNDLED WITH
+   2.1.4

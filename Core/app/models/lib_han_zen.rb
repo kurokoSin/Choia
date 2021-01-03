@@ -1,3 +1,6 @@
+module LibHanZen
+end
+
 def narrow_to_wide(str)
   str.tr('0-9a-zA-Z.: ', '０-９ａ-ｚＡ-Ｚ．：　')
 end

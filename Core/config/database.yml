@@ -28,4 +28,5 @@ production:
   timeout: 600
   username: Choia
   password: h65C7fpj
+#  password: <%= Dinomischus.load_file(Rails.root.join('config/choia_config_product.yml'))[:db_password] %>
   socket: /var/run/mysqld/mysqld.sock

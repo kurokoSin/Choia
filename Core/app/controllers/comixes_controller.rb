@@ -51,13 +51,9 @@ class ComixesController < ApplicationController
     @comix.destroy
   end
   
-  # DELETE /comixes/:mon/:publisher
-  def del_mon
-    @comix = Comix
-               .select(:id)
-               .where( "publish_date like '#{params[:mon]}%'", 
-                       "publisher = '#{params[:publisher]}'")
-    @comix.destroy
+  # DELETE /comixes/kadokawa/:mon
+  def del_kadokawa_mon
+    del_publisher_mon('ＫＡＤＯＫＡＷＡ', params[:mon] )
   end
 
 private
@@ -95,5 +91,13 @@ private
 
   def concat(*args)
     ActiveRecord::Base.connection.concat(args)
+  end
+
+  def del_publisher_mon(publisher, mon)
+    @comix = Comix
+               .select(:id)
+               .where( "publish_date like '#{mon}%'", 
+                       "publisher = '#{publisher}'")
+    @comix.destroy
   end
 end
