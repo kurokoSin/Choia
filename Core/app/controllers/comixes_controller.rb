@@ -48,7 +48,7 @@ class ComixesController < ApplicationController
 
   # DELETE /comixes/1
   def destroy
-    @comix.destroy
+    @comix.destroy unless @comix.nil?
   end
   
   # DELETE /comixes/kadokawa/:mon
@@ -94,10 +94,23 @@ private
   end
 
   def del_publisher_mon(publisher, mon)
-    @comix = Comix
-               .select(:id)
-               .where( "publish_date like '#{mon}%'", 
-                       "publisher = '#{publisher}'")
-    @comix.destroy
+    pub_date = "#{params[:mon]}%"
+
+    # delete KADOKAWA       
+    ActiveRecord::Base.transaction do
+      @comix = Comix
+        .select(:id, :name)
+        .where( publisher: "ＫＡＤＯＫＡＷＡ")
+        .where( "publish_date like ?", pub_date)
+
+      @comix.destroy_all
+    end
+
+
+    # @comix = Comix
+    #           .select(:id, :name, :publisher, :publish_date)
+    #           .where( "publish_date like ?", pub_date)
+    #           .where( publisher: :ＫＡＤＯＫＡＷＡ)
+    # render json: @comix
   end
 end

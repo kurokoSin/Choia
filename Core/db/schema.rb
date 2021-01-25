@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_145211) do
+ActiveRecord::Schema.define(version: 2021_01_11_144004) do
 
   create_table "comixes", force: :cascade do |t|
     t.string "name"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_145211) do
     t.string "book_image"
     t.string "isbn_code"
     t.string "other_info"
-    t.string "seies_name"
+    t.string "series_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_145211) do
     t.string "aname"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "alias_type"
   end
 
   create_table "series_tags", id: false, force: :cascade do |t|
