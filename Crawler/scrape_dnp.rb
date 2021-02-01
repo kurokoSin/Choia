@@ -33,8 +33,8 @@ private
     BookInfo.new do
 	    name         one.xpath("td")[1].text
 	    author       one.xpath("td")[2].text
-	    comic_name   one.xpath("td")[3].text
-	    publisher    one.xpath("td")[4].text
+	    publisher    one.xpath("td")[3].text
+	    comic_name   one.xpath("td")[4].text
       publish_date pub_date
       is_adult     :false
       source_domain "honto.jp"
