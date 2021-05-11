@@ -12,12 +12,12 @@
 
 ActiveRecord::Schema.define(version: 2021_01_11_144004) do
 
-  create_table "comixes", force: :cascade do |t|
-    t.string "name"
-    t.string "publisher"
-    t.string "comic_name"
+  create_table "comixes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name", comment: "本の名前"
+    t.string "publisher", comment: "出版社"
+    t.string "comic_name", comment: "コミックのシリーズ名"
     t.string "book_name"
-    t.string "author"
+    t.string "author", comment: "作者"
     t.datetime "publish_date"
     t.string "is_adult"
     t.string "book_image"
@@ -28,50 +28,50 @@ ActiveRecord::Schema.define(version: 2021_01_11_144004) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "series", id: false, force: :cascade do |t|
+  create_table "series", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "sid"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "series_aliases", id: false, force: :cascade do |t|
+  create_table "series_aliases", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "sid"
     t.string "aname"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "alias_type"
+    t.string "alias_type", comment: "別名の種類 1=別の呼び方 2=同一シリーズ"
   end
 
-  create_table "series_tags", id: false, force: :cascade do |t|
+  create_table "series_tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "sid"
     t.string "tid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "tags", id: false, force: :cascade do |t|
+  create_table "tags", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "tid"
     t.string "tname"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "topics", force: :cascade do |t|
+  create_table "topics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "week"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_favorits", id: false, force: :cascade do |t|
+  create_table "user_favorits", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "uid"
     t.string "sid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", id: false, force: :cascade do |t|
+  create_table "users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "uid"
     t.string "privateid"
     t.datetime "created_at", precision: 6, null: false
