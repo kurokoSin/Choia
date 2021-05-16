@@ -5,11 +5,6 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-
-development:
   adapter: mysql2
   database: ChoiaDb
   encoding: utf8mb4
@@ -18,21 +13,18 @@ development:
   username: Choia
   password: h65C7fpj
   socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: ChoiaDbDev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: ChoiaDbTest
 
 production:
-  adapter: mysql2
-  database: ChoiaDb
-  encoding: utf8mb4
-  pool: 5
-  timeout: 600
-  username: Choia
-  password: h65C7fpj
+  <<: *default
 #  password: <%= Dinomischus.load_file(Rails.root.join('config/choia_config_product.yml'))[:db_password] %>
-  socket: /var/run/mysqld/mysqld.sock
