@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'series/show'
+  namespace :customer do
+    get 'notify/show'
+  end
+
   # resources :topics
   get 'topics'   => 'topics#index'
   # get 'topics/:begin/:end' => 'topics#show'
@@ -12,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   delete 'comixes/kadokawa/:mon' => 'comixes#del_kadokawa_mon'
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

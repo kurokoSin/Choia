@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_152546) do
+ActiveRecord::Schema.define(version: 2021_05_22_084704) do
 
   create_table "comixes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", comment: "本の名前"
@@ -72,11 +72,12 @@ ActiveRecord::Schema.define(version: 2021_05_16_152546) do
   end
 
   create_table "users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "uid"
+    t.integer "uid"
     t.string "privateid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_name"
+    t.string "groupid"
   end
 
 end
