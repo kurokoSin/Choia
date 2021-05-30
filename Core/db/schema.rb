@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_084704) do
+ActiveRecord::Schema.define(version: 2021_05_24_150357) do
 
   create_table "comixes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", comment: "本の名前"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_05_22_084704) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "user_name"
     t.string "groupid"
+    t.integer "delay"
   end
 
 end

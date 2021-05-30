@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'series/show'
+
   namespace :customer do
-    get 'notify/show'
+    get 'calendar/:begindate(/:enddate(/:id))' => 'calendar#get_list'
   end
 
   # resources :topics
