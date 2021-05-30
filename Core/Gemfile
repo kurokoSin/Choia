@@ -47,5 +47,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # User Define
-Remove that line and also the config/storage.yml if it is present, and you should be good to go.
 gem 'dinomischus', '>= 0.1.5'
