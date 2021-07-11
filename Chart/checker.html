@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+  テキストボックスでコミックスを検索し、
+  各テーブルに不足情報の追加を行う。
+-->
+<head>
+  <meta charset="utf-8">
+  <title>登録済みコミック検索</title>
+  <script src="http://code.jquery.com/jquery-latest.js" ></script>
+</head>
+<body>
+  <div>
+     登録済みコミックスチェック
+  </div>
+  <div>
+    <input type=text id="search_name" style="width:98%" />
+  </div>
+  <br />
+  <div>
+    <table border="1">
+      <thead>
+        <tr>
+         <th>Comix</th>
+         <th>Series</th>
+         <th>Aliases</th>
+         <th>Topics</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+         <td id='listComix'>Comix</td>
+         <td id='listSeries'>Series</td>
+         <td id='listAliases'>Aliases</td>
+         <td id='listTopics'>Topics</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    $(function(){
+      $('#search_name').change( function(){
+        $.ajax({
+          url: 'http://localhost:3000/series/find_first/' + $('#search_name').text(),
+          dataType: 'json',
+          success: function(data){
+            $('#listSeries').text(data.name);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
